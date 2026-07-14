@@ -69,3 +69,13 @@ resource "aws_subnet" "private_b" {
   }
 
 }
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name        = "prod-igw"
+    Environment = "Production"
+    ManagedBy   = "Terraform"
+  }
+}
