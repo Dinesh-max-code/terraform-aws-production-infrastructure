@@ -79,3 +79,6 @@ resource "aws_internet_gateway" "main" {
     ManagedBy   = "Terraform"
   }
 }
+
+
+
