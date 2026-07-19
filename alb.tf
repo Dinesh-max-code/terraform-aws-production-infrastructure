@@ -37,3 +37,28 @@ resource "aws_lb_target_group" "web" {
   }
 
 }
+
+resource "aws_lb" "web" {
+
+  name = "prod-web-alb"
+
+  internal = false
+
+  load_balancer_type = "application"
+
+  security_groups = [
+    aws_security_group.alb.id
+  ]
+
+  subnets = [
+    aws_subnet.public_a.id,
+    aws_subnet.public_b.id
+  ]
+
+  enable_deletion_protection = false
+
+  tags = {
+    Name = "prod-web-alb"
+  }
+
+}
