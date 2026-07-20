@@ -4,12 +4,13 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
-    Name        = "prod-vpc"
-    environment = "production"
-    project     = "Terraform AWS Production Infrastructure"
-    managedby   = "terraform"
-  }
+  tags = merge(
+
+    local.common_tags,
+    {
+      Name = "prod-vpc"
+    }
+  )
 
 }
 
@@ -21,10 +22,13 @@ resource "aws_subnet" "public_a" {
 
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "prod-public-subnet-a"
-    Type = "Public"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-public-subnet-a"
+      Type = "Public"
+    }
+  )
 
 }
 
@@ -36,10 +40,13 @@ resource "aws_subnet" "public_b" {
 
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "prod-public-subnet-b"
-    Type = "Public"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-public-subnet-b"
+      Type = "Public"
+    }
+  )
 
 }
 
@@ -50,10 +57,13 @@ resource "aws_subnet" "private_a" {
   availability_zone = "${var.aws_region}a"
 
 
-  tags = {
-    Name = "prod-private-subnet-a"
-    Type = "Private"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-private-subnet-a"
+      Type = "Private"
+    }
+  )
 
 }
 
@@ -63,21 +73,26 @@ resource "aws_subnet" "private_b" {
 
   availability_zone = "${var.aws_region}b"
 
-  tags = {
-    Name = "prod-private-subnet-b"
-    Type = "Private"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-private-subnet-b"
+      Type = "Private"
+    }
+  )
 
 }
 
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags = {
-    Name        = "prod-igw"
-    Environment = "Production"
-    ManagedBy   = "Terraform"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-igw"
+
+    }
+  )
 }
 
 

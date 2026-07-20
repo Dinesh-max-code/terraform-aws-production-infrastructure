@@ -7,9 +7,12 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.main.id
   }
 
-  tags = {
-    Name = "prod-public-rt"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-public-rt"
+    }
+  )
 
 }
 
@@ -41,11 +44,12 @@ resource "aws_route_table" "private" {
 
   }
 
-  tags = {
-
-    Name = "prod-private-route-table"
-
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-private-route-table"
+    }
+  )
 
 }
 

@@ -26,11 +26,12 @@ resource "aws_iam_role" "ec2_role" {
 
   })
 
-  tags = {
-
-    Name = "prod-ec2-role"
-
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-ec2-role"
+    }
+  )
 
 }
 

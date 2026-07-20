@@ -2,9 +2,13 @@ resource "aws_eip" "nat" {
 
   domain = "vpc"
 
-  tags = {
-    Name = "prod-nat-eip"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-nat-eip"
+
+    }
+  )
 
 }
 
@@ -14,11 +18,13 @@ resource "aws_nat_gateway" "main" {
 
   subnet_id = aws_subnet.public_a.id
 
-  tags = {
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-nat-gateway"
 
-    Name = "prod-nat-gateway"
-
-  }
+    }
+  )
 
   depends_on = [
 

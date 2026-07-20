@@ -30,11 +30,12 @@ resource "aws_lb_target_group" "web" {
 
   }
 
-  tags = {
-
-    Name = "prod-web-target-group"
-
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-web-target-group"
+    }
+  )
 
 }
 
@@ -57,9 +58,12 @@ resource "aws_lb" "web" {
 
   enable_deletion_protection = false
 
-  tags = {
-    Name = "prod-web-alb"
-  }
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "prod-web-alb"
+    }
+  )
 
 }
 

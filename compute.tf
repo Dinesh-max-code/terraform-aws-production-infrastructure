@@ -38,11 +38,12 @@ resource "aws_launch_template" "web" {
 
     resource_type = "instance"
 
-    tags = {
-
-      Name = "prod-web-server"
-
-    }
+    tags = merge(
+      local.common_tags,
+      {
+        Name = "prod-web-server"
+      }
+    )
 
   }
 
